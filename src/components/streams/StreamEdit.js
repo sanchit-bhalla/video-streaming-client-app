@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
-import { fetchStream } from "../../actions";
+import { fetchStream, editStream } from "../../actions";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// useSelector -> Replacement for connect and mapStateToProps
+import StreamForm from "./StreamForm";
 
 const StreamEdit = (props) => {
   let { id } = useParams();
@@ -12,6 +12,10 @@ const StreamEdit = (props) => {
   let isUserAuthorized = false;
 
   const dispatch = useDispatch();
+
+  const onSubmit = (formValues) => {
+    dispatch(editStream(id, formValues));
+  };
 
   useEffect(() => {
     dispatch(fetchStream(id));
@@ -54,7 +58,12 @@ const StreamEdit = (props) => {
     return <div>Loading...</div>;
   }
 
-  return <div>{streamToEdit.title}</div>;
+  return (
+    <div>
+      <h3>Edit Stream</h3>
+      <StreamForm onSubmit={onSubmit} initialValues={streamToEdit} />
+    </div>
+  );
 };
 
 export default StreamEdit;

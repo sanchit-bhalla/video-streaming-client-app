@@ -1,4 +1,3 @@
-import { sample } from "lodash";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -30,9 +29,14 @@ const StreamList = (props) => {
       return (
         <div className="item" key={stream.id}>
           {renderDeleteAndEditButtons(stream)}
-          <i className="large middle aligned icon camera"></i>
+          <i
+            className="large middle aligned icon camera"
+            style={{ color: "#2185d0" }}
+          ></i>
           <div className="content">
-            {stream.title}
+            <Link to={`/streams/${stream.id}`} className="header">
+              {stream.title}
+            </Link>
             <div className="description">{stream.description}</div>
           </div>
         </div>
